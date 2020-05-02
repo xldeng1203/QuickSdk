@@ -1,0 +1,20 @@
+#每个小时在线人数统计
+59 23 * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/count_online.php 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#一分钟一次的权限赋值SHELL命令文件，主要给日志文件加上可读权限
+*/1 * * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/rolenum.php 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#获取每个小时中人数达到最高的时间及人数
+0 */1 * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/count_day_online.php 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#每10分钟获取游戏产生的log日志数据
+*/10 * * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/readlog.php 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#每天注册流失率统计(每小时统计一次)
+01 * * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/count_reg_lostrate.php 86400 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#每个小时注册流失率统计
+02 * * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/count_reg_lostrate.php 3600 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#元宝/绑定元宝/铜钱库存统计，每天00:01分执行统计前一天的内容
+01 00 * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/count_store.php 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#每天获取玩家实时在线人数数据
+03 00 * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/readlog.php 86400 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#每个小时获取前一个小时玩家登录人数
+02 */1 * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/count_login.php 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt
+#每天统计玩家留存率
+08 00 * * * root /usr/local/php/bin/php /data0/htdocs/workbench/oss/script/count_player_live.php 86400 2>>/data0/htdocs/workbench/oss/script/crontab_error.txt

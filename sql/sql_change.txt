@@ -1,0 +1,218 @@
+ALTER TABLE `count_store` ADD `add_coinbind` BIGINT( 20 ) NOT NULL DEFAULT '0' AFTER `store_coin` ,
+ADD `consume_coinbind` BIGINT( 20 ) NOT NULL DEFAULT '0' AFTER `add_coinbind` ,
+ADD `store_coinbind` BIGINT( 20 ) NOT NULL DEFAULT '0' AFTER `consume_coinbind` ;
+
+DROP TABLE IF EXISTS log_equipment;
+CREATE TABLE IF NOT EXISTS `log_equipment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '操作时间戳',
+  `type` varchar(50) NOT NULL COMMENT '操作类型',
+  `status` varchar(50) NOT NULL COMMENT '操作结果',
+  `role_id` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `role_name` varchar(100) NOT NULL COMMENT '角色名称',
+  `equip_id` int(10) NOT NULL DEFAULT '0' COMMENT '装备ID',
+  `equip_name` varchar(255) NOT NULL DEFAULT '' COMMENT '装备名称',
+  `equip_num` int(10) NOT NULL DEFAULT '0' COMMENT '装备数量',
+  `new_equip_id` int(10) NOT NULL DEFAULT '0' COMMENT '新装备ID',
+  `new_equip_name` varchar(255) NOT NULL DEFAULT '' COMMENT '新装备名称',
+  `quality` int(10) NOT NULL DEFAULT '0' COMMENT '品质',
+  `new_quality` int(10) NOT NULL DEFAULT '0' COMMENT '新品质',
+  `strengthen_level` int(10) NOT NULL DEFAULT '0' COMMENT '强化等级',
+  `new_strengthen_level` int(10) NOT NULL DEFAULT '0' COMMENT '新强化等级',
+  `flush_attr_type` varchar(255) NOT NULL DEFAULT '' COMMENT '属性类型',
+  `flush_attr_value` varchar(255) NOT NULL DEFAULT '' COMMENT '属性值',
+  `new_flush_attr_type` varchar(255) NOT NULL DEFAULT '' COMMENT '新属性类型',
+  `new_flush_attr_value` varchar(255) NOT NULL DEFAULT '' COMMENT '新属性值',
+  `cost_stuff_id` int(10) NOT NULL DEFAULT '0' COMMENT '消耗物品ID',
+  `cost_stuff_name` varchar(100) NOT NULL DEFAULT '' COMMENT '消耗物品名称',
+  `cost_stuff_count` int(10) NOT NULL DEFAULT '0' COMMENT '消耗物品数量',
+  `cost_stuff_bind_count` int(10) NOT NULL DEFAULT '0' COMMENT '消耗绑定物品数量',
+  `cost_coin` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消耗银两',
+  `cost_coin_bind` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消耗绑定银两',
+  `cost_gold` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消耗元宝',
+  `cost_gold_bind` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消耗绑定元宝',
+  `cost_lucky_item` int(10) NOT NULL DEFAULT '0' COMMENT '消耗幸运符',
+  `hole_index` tinyint(4) NOT NULL DEFAULT '0' COMMENT '镶嵌孔位置',
+  `flush_index` int(4) NOT NULL DEFAULT '0' COMMENT '洗练索引',
+  PRIMARY KEY (`id`),
+  KEY `role_id` (`role_id`),
+  KEY `type` (`type`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='武器装备操作记录' AUTO_INCREMENT=118 ;
+
+DROP TABLE IF EXISTS log_pet;
+CREATE TABLE IF NOT EXISTS `log_pet` (
+  `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_id` int(10) NOT NULL DEFAULT '0' COMMENT '玩家ID',
+  `role_name` varchar(100) NOT NULL DEFAULT '' COMMENT '玩家昵称',
+  `type` varchar(30) NOT NULL DEFAULT '' COMMENT '操作类型',
+  `status` varchar(10) NOT NULL DEFAULT '' COMMENT '状态：成功或者失败',
+  `pet_id` int(10) NOT NULL DEFAULT '0' COMMENT '宠物ID',
+  `pet_index` int(10) NOT NULL DEFAULT '0' COMMENT '宠物索引',
+  `pet_name` varchar(100) NOT NULL DEFAULT '' COMMENT '宠物名称',
+  `vice_pet_id` int(10) NOT NULL DEFAULT '0' COMMENT '融合宠物ID',
+  `vice_pet_index` int(10) NOT NULL DEFAULT '0' COMMENT '融合宠物索引',
+  `vice_pet_name` varchar(100) NOT NULL DEFAULT '' COMMENT '融合宠物名称',
+  `oper_value` int(10) NOT NULL DEFAULT '0' COMMENT '操作参数',
+  `level` int(10) NOT NULL DEFAULT '0' COMMENT '属性-等级',
+  `new_level` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-等级',
+  `jingli` int(10) NOT NULL DEFAULT '0' COMMENT '属性-精力值',
+  `new_jingli` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-精力值',
+  `zizhi` int(10) NOT NULL DEFAULT '0' COMMENT '属性-资质',
+  `new_zizhi` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-资质',
+  `grow_exp` int(10) NOT NULL DEFAULT '0' COMMENT '属性-成长经验',
+  `new_grow_exp` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-成长经验',
+  `grow_level` int(10) NOT NULL DEFAULT '0' COMMENT '属性-成长等级',
+  `new_grow_level` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-成长等级',
+  `wuxing_exp` int(10) NOT NULL DEFAULT '0' COMMENT '属性-悟性经验',
+  `new_wuxing_exp` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-悟性经验',
+  `wuxing_level` int(10) NOT NULL DEFAULT '0' COMMENT '属性-悟性等级',
+  `new_wuxing_level` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-悟性等级',
+  `attr_id` int(10) NOT NULL DEFAULT '0' COMMENT '属性-属性ID',
+  `new_attr_id` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-属性ID',
+  `image_val` int(10) NOT NULL DEFAULT '0' COMMENT '属性-幻化值',
+  `new_image_val` int(10) NOT NULL DEFAULT '0' COMMENT '新属性-幻化值',
+  `reward_exp` int(10) NOT NULL DEFAULT '0' COMMENT '奖励-经验',
+  `reward_stuff_id` int(10) NOT NULL DEFAULT '0' COMMENT '奖励-物品ID',
+  `reward_stuff_count` int(10) NOT NULL DEFAULT '0' COMMENT '奖励-物品数量',
+  `cost_jingli` int(10) NOT NULL DEFAULT '0' COMMENT '消耗-精力值',
+  `cost_gold` int(10) NOT NULL DEFAULT '0' COMMENT '消耗-元宝',
+  `cost_coin` int(10) NOT NULL DEFAULT '0' COMMENT '消耗-铜钱',
+  `cost_coin_bind` int(10) NOT NULL DEFAULT '0' COMMENT '消耗-绑定铜钱',
+  `cost_stuff_id` int(10) NOT NULL DEFAULT '0' COMMENT '消耗-物品ID',
+  `cost_stuff_count` int(10) NOT NULL DEFAULT '0' COMMENT '消耗-物品数量',
+  `cost_lucky_item` int(10) NOT NULL DEFAULT '0' COMMENT '消耗-幸运符',
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '操作时间戳',
+  PRIMARY KEY (`id`),
+  KEY `role_id` (`role_id`),
+  KEY `type` (`type`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='宠物操作日志' AUTO_INCREMENT=2 ;
+
+DROP TABLE IF EXISTS log_mount;
+CREATE TABLE IF NOT EXISTS `log_mount` (
+  `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_id` int(10) NOT NULL DEFAULT '0' COMMENT '玩家ID',
+  `role_name` varchar(100) NOT NULL DEFAULT '' COMMENT '玩家昵称',
+  `type` varchar(30) NOT NULL DEFAULT '' COMMENT '操作类型',
+  `status` varchar(10) NOT NULL DEFAULT '' COMMENT '状态：成功或者失败',
+  `mount_id` int(10) NOT NULL DEFAULT '0' COMMENT '坐骑ID',
+  `mount_index` int(10) NOT NULL DEFAULT '0' COMMENT '坐骑索引',
+  `mount_name` varchar(100) NOT NULL DEFAULT '' COMMENT '坐骑名称',
+  `level` int(10) NOT NULL DEFAULT '0' COMMENT '等级',
+  `new_level` int(10) NOT NULL DEFAULT '0' COMMENT '新等级',
+  `lucky_val` int(10) NOT NULL DEFAULT '0' COMMENT '幸运值',
+  `new_lucky_val` int(10) NOT NULL DEFAULT '0' COMMENT '新幸运值',
+  `cost_stuff_id` int(10) NOT NULL DEFAULT '0' COMMENT '消耗物品ID',
+  `cost_stuff_count` int(10) NOT NULL DEFAULT '0' COMMENT '消耗物品数量',
+  `cost_stuff_bind_count` int(10) NOT NULL DEFAULT '0' COMMENT '消耗绑定物品数量',
+  `cost_coin` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消耗银两',
+  `cost_coin_bind` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消耗绑定银两',
+  `cost_lucky_item` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消耗幸运符',
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '操作时间戳',
+  PRIMARY KEY (`id`),
+  KEY `role_id` (`role_id`),
+  KEY `type` (`type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='坐骑操作日志' AUTO_INCREMENT=1 ;
+
+use admincenter
+DROP TABLE IF EXISTS log_server_monitor;
+CREATE TABLE `log_server_monitor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `agent` varchar(32) NOT NULL DEFAULT '',
+  `serverid` varchar(32) NOT NULL DEFAULT '',
+  `chinanet_ip` varchar(32) NOT NULL DEFAULT '',
+  `cnc_ip` varchar(32) NOT NULL DEFAULT '',
+  `totalmemg` varchar(16) NOT NULL DEFAULT '',
+  `usedmemg` varchar(16) NOT NULL DEFAULT '',
+  `freememg` varchar(16) NOT NULL DEFAULT '',
+  `totalcpucore` varchar(16) NOT NULL DEFAULT '',
+  `cpuidle` varchar(16) NOT NULL DEFAULT '',
+  `cpuload1` varchar(16) NOT NULL DEFAULT '',
+  `cpuload5` varchar(16) NOT NULL DEFAULT '',
+  `cpuload15` varchar(16) NOT NULL DEFAULT '',
+  `rx` varchar(16) NOT NULL DEFAULT '',
+  `tx` varchar(16) NOT NULL DEFAULT '',
+  `disk_total` varchar(16) NOT NULL DEFAULT '',
+  `disk_use` varchar(16) NOT NULL DEFAULT '',
+  `disk_percentage` varchar(16) NOT NULL DEFAULT '',
+  `tcp_c` varchar(16) NOT NULL DEFAULT '',
+  `update_time` varchar(16) NOT NULL DEFAULT '',
+  `disk_io` varchar(16) NOT NULL DEFAULT '',
+  `swap_use` varchar(16) NOT NULL DEFAULT '',
+  `server_version` varchar(32) NOT NULL DEFAULT '',
+  `md5_server_exe` varchar(64) NOT NULL DEFAULT '',
+  `md5_EXEgameworld` varchar(64) NOT NULL DEFAULT '',
+  `md5_game_db` varchar(64) NOT NULL DEFAULT '',
+  `md5_admin_db` varchar(64) NOT NULL DEFAULT '',
+  `cachemonitor_percent` varchar(16) NOT NULL DEFAULT '',
+  `cachemonitor_max` varchar(16) NOT NULL DEFAULT '',
+  `opentime` varchar(32) NOT NULL DEFAULT '',
+  `openstatus` varchar(16) NOT NULL DEFAULT '',
+  `gamestate` varchar(16) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=484 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `servers_config`
+ADD COLUMN `md5_server_exe`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' AFTER `server_version`,
+ADD COLUMN `md5_game_db`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' AFTER `md5_server_exe`,
+ADD COLUMN `md5_admin_db`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' AFTER `md5_game_db`;
+
+23:09 2014/1/6 添加监控日志字段
+ALTER TABLE `log_monitor` ADD `coin` INT NOT NULL DEFAULT '0' AFTER `coin_bind` ;
+ALTER TABLE `log_monitor` ADD `coin_get` INT NOT NULL DEFAULT '0' AFTER `chest_shop_buy_num` ,
+ADD `coin_consum` INT NOT NULL DEFAULT '0' AFTER `coin_get` ,
+ADD `mysteryshop_flush_num` INT NOT NULL DEFAULT '0' AFTER `coin_consum` ,
+ADD `compose_num` INT NOT NULL DEFAULT '0' AFTER `mysteryshop_flush_num` ;
+
+21:52 2014/1/9 登录日志添加微端标记
+ALTER TABLE  `log_login` ADD  `is_micro_pc` INT NOT NULL DEFAULT  '0' AFTER  `ip`
+
+17:19 2014/1/15 删除活动卡表present_card的card唯一索引
+ALTER TABLE `present_card` DROP INDEX `card`
+
+17:19 2014/3/27 添加快速日志表
+CREATE TABLE `log_quick` (
+  `time` datetime NOT NULL,
+  `n1` bigint(20) NOT NULL,
+  `n2` bigint(20) DEFAULT NULL,
+  `z1` varchar(64) DEFAULT NULL,
+  `z2` varchar(64) DEFAULT NULL,
+  `n3` bigint(20) DEFAULT NULL,
+  `n4` bigint(20) DEFAULT NULL,
+  `z3` varchar(64) DEFAULT NULL,
+  `z4` varchar(64) DEFAULT NULL,
+  `n5` bigint(20) DEFAULT NULL,
+  `n6` bigint(20) DEFAULT NULL,
+  `z5` varchar(64) DEFAULT NULL,
+  `z6` varchar(64) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+ALTER TABLE `log_quick` ADD INDEX ( `n1` );
+ALTER TABLE `log_quick` ADD INDEX ( `n2` );
+ALTER TABLE `log_quick` ADD INDEX ( `z1` );
+ALTER TABLE `log_quick` ADD INDEX ( `z2` );
+
+17:19 2014/04/03 修改快速日志表
+ALTER TABLE `log_quick`
+MODIFY COLUMN `z4`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `z3`,
+MODIFY COLUMN `z6`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `z5`;
+
+ALTER TABLE `log_quick`
+DROP INDEX `z1`,
+DROP INDEX `z2`,
+ADD INDEX `n3` (`n3`) USING BTREE ;
+
+17:19 2014/04/04 快速日志表 添加时间索引
+ALTER TABLE `log_quick`
+ADD INDEX `time` (`time`) USING BTREE ;
+
+17:19 2014/04/08 新建消费统计表
+CREATE TABLE `month_consume` (
+  `month` datetime NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `user_name` varchar(32) NOT NULL,
+  `add_gold` int(11) DEFAULT '0',
+  `pay_gold` int(11) DEFAULT '0',
+  `use_gold` int(11) DEFAULT '0',
+  `left_gold` int(11) DEFAULT '0',
+  KEY `month` (`month`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
