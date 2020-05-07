@@ -70,8 +70,11 @@ class cls_mysql
 		
 		if ($rs = mysql_query($sql,$conn)){
 			if(COMM_BENCHMARK){
+				echo "function Query  COMM_BENCHMARK: <br>";
 				$GLOBALS['benchmark'][$GLOBALS['benchmark_current']]['query'][] = array('sql'=>$sql,'runtime'=>microtime(true) - $benchmark_start);
 			}
+			echo "function Query  sql: ".$sql."<br>";
+			echo "function Query  rs : ".$rs."<br>";
 			return $rs;
 		}else{
 			if($rollback) $this->RollBack();

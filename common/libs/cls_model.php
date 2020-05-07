@@ -29,7 +29,7 @@ abstract class cls_model
 			$values=implode(',', $values);
 			echo "11 public function insert  $this->_table <br>";
 			$sql=($replace?'REPLACE':'INSERT').' INTO '.$this->_table."($fields)VALUES($values);";
-			echo "22 public function insert  $sql <br>";
+			echo "@@@ 22 public function insert  $sql <br>";
 			if($this->_db->Query($sql)){
 				echo "333 public function insert   <br>";
 				return $this->_db->InsertID();
@@ -140,8 +140,14 @@ abstract class cls_model
 		$sql='SELECT '.$fields.' FROM '.$this->_table.$this->_join($join).$this->_where($where);
 		//echo $sql,'<br/>';die;
 		if ($count) {
+			//33 SELECT count(*) FROM charge WHERE paynum = '11112'
+			echo "333333333333333 ".$sql,'<br/>';
 			$rs = $this->_db->Query($sql);
-			$num = $this->_db->Result($rs,0);
+			echo "333333333333333 rs ".$rs,'<br/>';
+			//$num = $this->_db->Result($rs,0);
+
+			$num = $this->_db->NumRows($rs);
+			echo "333333333333333 num ".$num,'<br/>';
 			return $num;
 		}
 		
